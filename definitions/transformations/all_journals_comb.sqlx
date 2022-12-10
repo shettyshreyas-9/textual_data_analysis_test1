@@ -5,6 +5,8 @@ config {
   name: "all_journals_comb"
 }
 
+--
+
 Select JFlow_ID,Title,'' as JournalAbbreviation,'snapp_v1' as new_peer_review
 From ${ref("journal_snapp_v1")}
 
