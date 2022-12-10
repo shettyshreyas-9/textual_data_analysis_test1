@@ -5,6 +5,8 @@ config {
   name: "prs_journals"
 }
 
+--
+
 With tbl_Jrnls as(
   Select 
     JournalKey, 
