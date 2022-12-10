@@ -1,0 +1,59 @@
+config {
+  type: "table",
+  database: "springer-nature-analytics",
+  schema: "v2_OKR_collections",
+  name: "prs_journals"
+}
+
+With tbl_Jrnls as(
+  Select 
+    JournalKey, 
+    JournalTitle, 
+    JournalPUDesc as PublishingUnit, 
+    JournalBusinessModel, 
+    JournalPDDesc as PublishingDescipline, 
+    JournalImprint, 
+    JournalFullyOwndedbySpringer, 
+    JournalPeerReviewSystem, 
+    JournalStatus, 
+    JournalReportingKey, 
+    JournalAbbreviation 
+  from 
+  ${ref("tbl_Journals")}
+  where 
+    JournalReportingKey = 'Journals group'  and JournalStatus = 'ACTIVE' 
+    )
+
+
+,snapp_v1_jrnls as(
+  SELECT *,'snapp_v1' as data_source1
+  FROM ${ref("journal_snapp_v1")}
+)
+
+,snapp_v2_jrnls as(
+  SELECT *,'snapp_v2' as data_source2
+  FROM ${ref("journal_snapp_v2")}
+)
+
+, EM_journals as(
+SELECT *,'EM' as data_source3
+FROM ${ref("EM_journals_consold")}
+)
+, ejp_jrnls as (
+SELECT *,'eJP' as data_source4 
+FROM ${ref("eJP_jrnls")}
+)
+
+SELECT tblj.*,jrsn1.data_source1,jrsn2.data_source2,emjc.data_source3,ejpj.data_source4
+FROM tbl_Jrnls tblj
+LEFT JOIN snapp_v1_jrnls jrsn1
+On tblj.JournalKey = jrsn1.JFlow_ID
+LEFT JOIN snapp_v2_jrnls jrsn2
+On tblj.JournalKey = jrsn1.JFlow_ID
+LEFT JOIN EM_journals emjc
+on tblj.JournalAbbreviation = emjc.FLC 
+  or tblj.JournalTitle = emjc.PRODUCT_TITLE
+LEFT JOIN ejp_jrnls ejpj
+On tblj.JournalKey = ejpj.j_id
+
+
