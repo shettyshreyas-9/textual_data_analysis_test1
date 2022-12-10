@@ -5,7 +5,7 @@ config {
   name: "prs_journals"
 }
 
---
+-- trial
 
 With tbl_Jrnls as(
   Select 
