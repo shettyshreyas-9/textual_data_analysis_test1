@@ -5,7 +5,8 @@ config {
   name: "prs_journals"
 }
 
--- trial
+-- trial1
+-- trial2
 
 With tbl_Jrnls as(
   Select 
