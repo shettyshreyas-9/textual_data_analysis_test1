@@ -1,0 +1,20 @@
+config {
+  type: "table",
+  database:"springer-nature-analytics",
+  schema:"v2_OKR_collections",
+  name:"coll_trnsf_with_jrnl_trnsf",
+  description:""
+}
+
+Select distinct 
+-- jt.* ,ct.*
+ct.filter_journal_title
+, PublishingUnit,  PublishingDescipline,JournalImprint,JournalFullyOwndedbySpringer
+,ct.coll_new_source
+
+,coalesce(jt.snapp_version,'unknown') as jrnl_snapp_version
+
+From ${ref("coll_transf")} ct
+left join  ${ref("journals_transf")} jt
+On normalize_and_casefold(jt.JournalTitle)= normalize_and_casefold(ct.filter_journal_title)
+order by 1

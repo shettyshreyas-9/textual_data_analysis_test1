@@ -1,0 +1,22 @@
+config {
+  type: "table",
+  database:"springer-nature-analytics",
+  schema:"v2_OKR_collections",
+  name:"coll_transf",
+  description:""
+}
+
+
+with collection_with_subs as 
+(SELECT distinct  
+filter_coll_id,filter_coll_title,source_system,CT_startDate,CT_endDate
+,filter_journal_id,
+filter_journal_title
+FROM ${ref("coll_kpi_final_reporting")} 
+)
+
+Select distinct *,
+Case When source_system!='SNAPP' Then source_system Else coalesce(snapp_version,'unknown') end as coll_new_source
+from collection_with_subs as cte 
+left join ${ref("jrnl_snapp_version_comb")} as svc
+On normalize_and_casefold(cte.filter_journal_title) = normalize_and_casefold(svc.Title)

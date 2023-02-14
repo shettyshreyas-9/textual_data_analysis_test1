@@ -1,7 +1,7 @@
 config {
   type: "declaration",
   database:"springer-nature-analytics",
-  schema:"shreyas_collections_EU",
-  name:"journal_snapp_v2",
+  schema:"v2_OKR_collections",
+  name:"snapp_v2_journal",
   description:"snapp v2 journals"
 }

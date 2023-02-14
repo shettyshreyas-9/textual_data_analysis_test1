@@ -1,0 +1,33 @@
+config {
+  type: "table",
+  database:"springer-nature-analytics",
+  schema:"v2_OKR_collections",
+  name:"journals_transf",
+  description:""
+}
+
+with tbl_jrnls as(
+  Select distinct
+    JournalKey, 
+    JournalTitle, 
+    JournalPUDesc as PublishingUnit, 
+    JournalPDDesc as PublishingDescipline, 
+    JournalImprint, 
+    JournalFullyOwndedbySpringer, 
+    JournalBusinessModel, 
+    -- JournalPeerReviewSystem, 
+    -- JournalStatus, 
+    -- JournalReportingKey, 
+    -- JournalAbbreviation 
+  from ${ref("tbl_Journals")}
+  where 
+    JournalReportingKey = 'Journals group'  and JournalStatus = 'ACTIVE' 
+  )
+
+Select * except(snapp_version),coalesce(snapp_version,'unknown') as snapp_version
+From (
+  Select distinct *
+  From tbl_jrnls as tj
+  LEFT JOIN ${ref("jrnl_snapp_version_comb")} svc
+  On normalize_and_casefold(tj.JournalTitle)= normalize_and_casefold(svc.Title)
+)

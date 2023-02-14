@@ -1,0 +1,20 @@
+config {
+  type: "table",
+  database:"springer-nature-analytics",
+  schema:"v2_OKR_collections",
+  name:"prs_colls_vs_jrnls",
+  description:""
+}
+
+
+  Select distinct 
+  a.coll_new_source,coalesce(b.snapp_version,'unknown') jrnl_snapp_version,coll_count,coalesce(jrnl_count,0) as jrnl_count
+  FROM
+  (Select coll_new_source,count(distinct filter_coll_title) as coll_count
+From ${ref("coll_transf")}
+group by 1) a
+left join (
+Select snapp_version, count(distinct JournalTitle) as jrnl_count
+From ${ref("journals_transf")}
+group by 1) b
+On a.coll_new_source = b.snapp_version

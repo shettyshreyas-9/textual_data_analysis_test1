@@ -1,0 +1,14 @@
+config {
+  type: "table",
+  database:"springer-nature-analytics",
+  schema:"v2_OKR_collections",
+  name:"jrnl_snapp_version_comb",
+  description:""
+}
+
+
+  SELECT JFlow_ID,Title,'snapp_v1' as snapp_version 
+  FROM ${ref("snapp_v1_journal")}
+  union distinct
+  SELECT JFlow_ID,Title,'snapp_v2' as snapp_version 
+  FROM ${ref("snapp_v2_journal")} 

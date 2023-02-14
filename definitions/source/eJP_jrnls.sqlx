@@ -1,7 +1,0 @@
-config {
-  type: "declaration",
-  database:"springer-nature-analytics",
-  schema:"shreyas_collections_EU",
-  name:"eJP_jrnls",
-  description:"consolidated eJP journals"
-}

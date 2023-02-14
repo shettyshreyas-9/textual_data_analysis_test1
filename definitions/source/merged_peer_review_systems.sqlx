@@ -1,7 +1,0 @@
-config {
-  type: "declaration",
-  database:"springer-nature-analytics",
-  schema:"Collections_KPI_master",
-  name:"merged_peer_review_systems",
-  description:"snapp & em manuscripts submitted to a collection"
-}
