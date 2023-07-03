@@ -1,7 +1,7 @@
 config {
   type: "declaration",
-  database:"springer-nature-analytics",
-  schema:"core_datasets_eu",
+  database:"ri-data-engineering-dd4c0eca",
+  schema:"collections",
   name:"collections",
   description:"collections_api dataset"
 }

@@ -1,6 +1,6 @@
 {
     "warehouse": "bigquery",
-    "defaultSchema": "v2_OKR_collections",
+    "defaultSchema": "prs_journals_collections_okr",
     "assertionSchema": "dataform_assertions",
-    "defaultDatabase": "springer-nature-analytics"
+    "defaultDatabase": "aceinternal-2ed449d3"
 }
