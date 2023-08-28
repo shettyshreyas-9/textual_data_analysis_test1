@@ -1,5 +1,6 @@
 {
-    "dependencies": {
-        "@dataform/core": "1.22.1"
-    }
+  "name": "prs_journals_collections_okr",
+  "dependencies": {
+    "@dataform/core": "2.4.2"
+  }
 }
