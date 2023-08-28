@@ -21,3 +21,4 @@ Case When source_system!='SNAPP' Then source_system Else coalesce(snapp_version,
 from collection_with_subs as cte 
 left join ${ref("jrnl_snapp_version_comb")} as svc
 On normalize_and_casefold(cte.filter_journal_title) = normalize_and_casefold(svc.Title)
+
